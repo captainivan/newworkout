@@ -73,36 +73,38 @@ const Page = () => {
 
       {/* DAYS LIST */}
       <div className="w-full max-w-md flex flex-col gap-4">
-        {days.map((e, i) => (
-          <div
-            key={i}
-            onClick={() => { router.push(`/startWorkout/legWorkout/${level}?day=${e.day}&id=${e._id}`) }}
-            className="
+        {days.length < 1 ? <>LOADING...</> :
+          days.map((e, i) => (
+            <div
+              key={i}
+              onClick={() => { router.push(`/startWorkout/legWorkout/${level}?day=${e.day}&id=${e._id}`) }}
+              className="
               w-full rounded-2xl border border-zinc-800
               bg-zinc-900/40 backdrop-blur
               p-5 flex items-center justify-between
               hover:border-zinc-700 transition
               cursor-pointer
             "
-          >
-            <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-lg bg-zinc-800 ${levelAccent[level] || "text-zinc-300"}`}>
-                <CalendarDays size={20} />
+            >
+              <div className="flex items-center gap-3">
+                <div className={`p-2 rounded-lg bg-zinc-800 ${levelAccent[level] || "text-zinc-300"}`}>
+                  <CalendarDays size={20} />
+                </div>
+
+                <div>
+                  <div className="text-lg font-semibold">
+                    Day {e.day}
+                  </div>
+                  <div className="text-sm text-zinc-500">
+                    Leg workout session
+                  </div>
+                </div>
               </div>
 
-              <div>
-                <div className="text-lg font-semibold">
-                  Day {e.day}
-                </div>
-                <div className="text-sm text-zinc-500">
-                  Leg workout session
-                </div>
-              </div>
+              {e.completed ? <><Button className={`  ${levelAccent[level]}`}>COMPLETED</Button></> : <ChevronRight size={20} className="text-zinc-600" />}
             </div>
-
-            {e.completed ? <><Button className={`  ${levelAccent[level]}`}>COMPLETED</Button></> : <ChevronRight size={20} className="text-zinc-600" />}
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   )
